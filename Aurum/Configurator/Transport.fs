@@ -19,31 +19,31 @@ type Security =
     | XTLS
 
 type WebSocketObject =
-    { path: string
-      maxEarlyData: int
-      browserForwarding: bool
-      earlyDataHeader: string
-      headers: Dictionary<string, string> }
+    { path: string option
+      maxEarlyData: int option
+      browserForwarding: bool option
+      earlyDataHeader: string option
+      headers: Dictionary<string, string> option }
 
 type HttpRequestObject =
-    { version: string
-      method: string
-      path: string list
-      headers: Dictionary<string, string list> }
+    { version: string option
+      method: string option
+      path: string list option
+      headers: Dictionary<string, string list> option }
 
 type HttpResponseObject =
-    { version: string
-      status: string
-      reason: string
-      headers: Dictionary<string, string list> }
+    { version: string option
+      status: string option
+      reason: string option
+      headers: Dictionary<string, string list> option }
 
 type TcpHeaderObject =
     { [<JsonField("type")>]
-      headerType: string
-      request: HttpRequestObject
-      response: HttpResponseObject }
+      headerType: string option
+      request: HttpRequestObject option
+      response: HttpResponseObject option }
 
-type TcpObject = { header: TcpHeaderObject }
+type TcpObject = { header: TcpHeaderObject option }
 
 type KcpHeaders =
     | None
@@ -55,18 +55,18 @@ type KcpHeaders =
 
 type UdpHeaderObject =
     { [<JsonField("type")>]
-      headerType: KcpHeaders }
+      headerType: KcpHeaders option }
 
 type KcpObject =
-    { mtu: int
-      tti: int
-      uplinkCapacity: int
-      downlinkCapacity: int
-      congestion: bool
-      readBufferSize: int
-      writeBufferSize: int
-      header: UdpHeaderObject
-      seed: string }
+    { mtu: int option
+      tti: int option
+      uplinkCapacity: int option
+      downlinkCapacity: int option
+      congestion: bool option
+      readBufferSize: int option
+      writeBufferSize: int option
+      header: UdpHeaderObject option
+      seed: string option }
 
 type HTTPMethod =
     | GET
@@ -80,10 +80,10 @@ type HTTPMethod =
     | PATCH
 
 type HttpObject =
-    { host: string list
-      path: string
-      method: HTTPMethod
-      headers: Dictionary<string, string list> }
+    { host: string list option
+      path: string option
+      method: HTTPMethod option
+      headers: Dictionary<string, string list> option }
 
 // reserved for future annotations.
 type QuicSecurity =
@@ -92,17 +92,17 @@ type QuicSecurity =
     | [<JsonField("chacha20-poly1305")>] ChaCha20
 
 type QuicObject =
-    { security: string
-      key: string
-      header: UdpHeaderObject }
+    { security: string option
+      key: string option
+      header: UdpHeaderObject option }
 
-type GrpcObject = { serviceName: string }
+type GrpcObject = { serviceName: string option }
 
 type TLSObject =
-    { serverName: string
-      allowInsecure: bool
-      alpn: string list
-      disableSystemRoot: bool }
+    { serverName: string option
+      allowInsecure: bool option
+      alpn: string list option
+      disableSystemRoot: bool option }
 
 type TProxyType =
     | Redirect
@@ -110,12 +110,12 @@ type TProxyType =
     | Off
 
 type SockoptObject =
-    { mark: int
+    { mark: int option
       tcpFastOpen: bool option
-      tproxy: TProxyType }
+      tproxy: TProxyType option }
 
 type StreamSettingsObject =
-    { network: Networks
+    { network: Networks option
       tls: TLSObject option
       tcp: TcpObject option
       kcp: KcpObject option

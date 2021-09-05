@@ -30,49 +30,49 @@ type VMessEncryption =
     | [<JsonField("chacha20-poly1305")>] ChaCha20
 
 type UserObject =
-    { id: string
-      encryption: VLESSEncryption
-      level: int
-      alterId: int
-      security: string (* should be VMessEncryption but not supported by the Serializer/Deserializer library *)  }
+    { id: string option
+      encryption: VLESSEncryption option
+      level: int option
+      alterId: int option
+      security: string option (* should be VMessEncryption but not supported by the Serializer/Deserializer library *)  }
 
 // v2ray-go specific implementation, removed VLESS components.
 type GoUserObject =
-    { id: string
-      level: int
-      alterId: int
-      security: string }
+    { id: string option
+      level: int option
+      alterId: int option
+      security: string option }
 
 type ServerObject =
-    { address: string
-      port: int
-      password: string
+    { address: string option
+      port: int option
+      password: string option
       email: string option
-      level: int
-      method: string (* should be ShadowsocksEncryption but not supported by the Serializer/Deserializer library *)
-      ivCheck: bool
-      users: UserObject list }
+      level: int option
+      method: string option (* should be ShadowsocksEncryption but not supported by the Serializer/Deserializer library *)
+      ivCheck: bool option
+      users: UserObject list option }
 
 type OutboundConfigurationObject =
-    { vnext: ServerObject list
-      servers: ServerObject list }
+    { vnext: ServerObject list option
+      servers: ServerObject list option }
 
 // v2ray-go specific implementation, removed vnext layer.
 type GoOutboundConfigurationObject =
-    { address: string
-      port: int
-      users: UserObject list
-      servers: ServerObject list }
+    { address: string option
+      port: int option
+      users: UserObject list option
+      servers: ServerObject list option }
 
 type MuxObject = { enabled: bool; concurrency: int }
 
 type GenericOutboundObject<'T> =
-    { sendThrough: string
-      protocol: Protocols
-      settings: 'T
-      tag: string
-      streamSettings: StreamSettingsObject
-      mux: MuxObject }
+    { sendThrough: string option
+      protocol: Protocols option
+      settings: 'T option
+      tag: string option
+      streamSettings: StreamSettingsObject option
+      mux: MuxObject option }
 
 type OutboundObject = GenericOutboundObject<OutboundConfigurationObject>
 // v2ray-go specific implementation, removed vnext and VLESS.

@@ -12,33 +12,35 @@ type SocksAuth =
     | NoAuth
     | Password
 
-type AccountObject = { user: string; pass: string }
+type AccountObject =
+    { user: string option
+      pass: string option }
 
 type InboundConfigurationObject =
-    { accounts: AccountObject list
-      userLevel: int
-      timeout: int
+    { accounts: AccountObject list option
+      userLevel: int option
+      timeout: int option
       (*HTTP specific*)
-      allowTransparent: bool
+      allowTransparent: bool option
       (*SOCKS specific*)
-      auth: SocksAuth
-      udp: bool
-      ip: string
+      auth: SocksAuth option
+      udp: bool option
+      ip: string option
       (*Dokodemo-door specific*)
       address: string option
-      port: int
-      network: string
-      followRedirect: bool }
+      port: int option
+      network: string option
+      followRedirect: bool option }
 
 type SniffingObject =
-    { enabled: bool
-      destOverride: string list
-      metadataOnly: bool }
+    { enabled: bool option
+      destOverride: string list option
+      metadataOnly: bool option }
 
 type InboundObject =
-    { listen: string
-      port: int
-      protocol: string
-      settings: InboundConfigurationObject
-      tag: string
-      sniffing: SniffingObject }
+    { listen: string option
+      port: int option
+      protocol: string option
+      settings: InboundConfigurationObject option
+      tag: string option
+      sniffing: SniffingObject option }
