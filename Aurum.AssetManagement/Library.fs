@@ -1,4 +1,4 @@
-﻿namespace Aurum.Interop
+﻿namespace Aurum.AssetManagement
 
 module Say =
     let hello name =
